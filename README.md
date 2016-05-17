@@ -1,30 +1,29 @@
 FCCSW
 =====
 
-Common software for all FCC experiments.
+Version of FCCSW intended to submit jobs to Grid. 
+Running this locally as well as submitting to Grid is not recommended - things may become linked to afs, which will cause Grid jobs to fail.
 This software is based on Gaudi.
 
 
 Installation
 ------------
 
-Log in to lxplus SLC6. Please note that these instructions might not work on another SLC6 machine. 
+All installation occurs on the Grid. The file
+    grid_sub.sh
+submits the job using prun and sets the outDS.
 
-Set up your environment, as everytime you want to build or use this software: 
+The file
+    grid_test.sh
+is what actually runs on Grid. The FCC stack is sourced, the code is compiled, and the particle gun is used to generate events from the script
+   geant_fullsim_ecal_SPG_batch.py
 
-    source ./init.sh
+However, if you wish to run many jobs, it is recommended you use
+	 grid_sub_many.sh
+to iterate over the jobs you wish to submit. Currently the script is designed to submit tests with different ratios of lead and LAr in the ECAL, but it can easily be modified.
 
-Compile the FCC software:
 
-    make -j 12
 
-Test
-----
-
-    cp ~hegner/public/example_MyPythia.dat .
-    ./run gaudirun.py Examples/options/example_options.py
-
-You should see an HepMC printout.
 
 Documentation
 ----
